@@ -322,11 +322,7 @@ public class RNPushNotificationHelper {
             // to the user which we shouldn't do. So, remove the notification from the shared
             // preferences once it has been shown to the user. If it is a repeating notification
             // it will be scheduled again.
-            if (scheduledNotificationsPersistence.getString(notificationIdString, null) != null) {
-                SharedPreferences.Editor editor = scheduledNotificationsPersistence.edit();
-                editor.remove(notificationIdString);
-                commit(editor);
-            }
+			this.removeFromSharedPrefs(notificationIdString);
 
             Notification info = notification.build();
             info.defaults |= Notification.DEFAULT_LIGHTS;
@@ -347,6 +343,14 @@ public class RNPushNotificationHelper {
             Log.e(LOG_TAG, "failed to send push notification", e);
         }
     }
+
+	public void removeFromSharedPrefs(String notificationIdString){
+		if (scheduledNotificationsPersistence.getString(notificationIdString, null) != null) {
+			SharedPreferences.Editor editor = scheduledNotificationsPersistence.edit();
+			editor.remove(notificationIdString);
+			commit(editor);
+		}
+	}
 
     private void scheduleNextNotificationIfRepeating(Bundle bundle) {
         String repeatType = bundle.getString("repeatType");

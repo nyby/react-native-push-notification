@@ -35,7 +35,9 @@ public class RNPushNotificationPublisher extends BroadcastReceiver {
                     PendingIntent.FLAG_UPDATE_CURRENT);
             try {
                 pendingIntent.send(context, 0, newIntent);
+				new RNPushNotificationHelper(applicationContext).removeFromSharedPrefs(notificationIdString);
             } catch (PendingIntent.CanceledException e) {
+				Log.i(LOG_TAG, "NotificationPublisher: Intent Canceled");
             }
         } else
             new RNPushNotificationHelper(applicationContext)
