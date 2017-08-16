@@ -19,7 +19,7 @@ public class RNPushNotificationPublisher extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		int notificationId = intent.getIntExtra(NOTIFICATION_ID, NOTIFICATION_NOT_FOUND);
-		if(notificationId == -1)
+		if (notificationId == NOTIFICATION_NOT_FOUND)
 			return;
 		long currentTime = System.currentTimeMillis();
 		Log.i(LOG_TAG, "NotificationPublisher: Prepare To Publish: " + notificationId + ", Now Time: " + currentTime);
